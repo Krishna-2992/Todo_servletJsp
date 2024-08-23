@@ -1,10 +1,10 @@
 package com.yash.pojo;
 
 public class Task {
-	int id; 
-	String name; 
-	String description; 
-	String status;
+	public int id; 
+	public String name; 
+	public String description; 
+	public String status;
 	public int getId() {
 		return id;
 	}
@@ -29,6 +29,4 @@ public class Task {
 	public void setStatus(String status) {
 		this.status = status;
 	} 
-	
-	 
 }

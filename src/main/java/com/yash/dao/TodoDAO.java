@@ -7,6 +7,6 @@ import com.yash.pojo.Task;
 public interface TodoDAO {
 	Task getTaskById(int id);
 	List<Task> getAllTasks();
-	void saveTask(int id, String name, String description, String status);
+	void saveTask(Task task);
 	void deleteTask(int id); 
 }
