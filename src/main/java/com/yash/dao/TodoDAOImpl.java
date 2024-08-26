@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.yash.pojo.Task;
 import com.yash.utils.DBConnection;
+import com.yash.utils.NextInt;
 
 public class TodoDAOImpl implements TodoDAO{
 	private List<Task> tasks = new ArrayList();
@@ -15,13 +16,20 @@ public class TodoDAOImpl implements TodoDAO{
 	private Connection connection;
 	
 	public void addTask(String name, String description) {
+		System.out.println("Inside addTask: DaoImpl");
 		try {
 			connection = DBConnection.getConnection();
 			
-			String q = "insert into Tasks values(?,?)";
+			int id = NextInt.getNextInt(); 
+			System.out.println("id: " + id);
+			
+			String q = "insert into Tasks (id, name, description, status) values(?,?,?,?)";
 			PreparedStatement ps = connection.prepareStatement(q);
-			ps.setString(1, name);
-			ps.setString(2, description);
+			ps.setInt(1, id);
+			ps.setString(2, name);
+			ps.setString(3, description);
+			ps.setString(4, "pending");
+			
 			int rowsAffected = ps.executeUpdate();
 			
 			if (rowsAffected > 0) {

@@ -5,6 +5,7 @@ public class Task {
 	public String name; 
 	public String description; 
 	public String status;
+	
 	public int getId() {
 		return id;
 	}
