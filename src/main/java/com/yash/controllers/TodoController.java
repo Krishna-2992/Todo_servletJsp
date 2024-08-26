@@ -17,18 +17,30 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/TodoController")
 public class TodoController extends HttpServlet {
+	
+	private static final long serialVersionUID = 1L;
+	private TodoServices todoServices;
+	
+	public void init() {
+		this.todoServices = new TodoServicesImpl();	
+	}
     
-	public void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+		throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		
 		System.out.println("name: " + name);
 		System.out.println("description: " + description);
 		
-		TodoServicesImpl services = new TodoServicesImpl();
-		services.addTask(name, description);
+		try {
+			todoServices.addTask(name, description);
+			System.out.println("done");
+		} catch(Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to add tasks");
+		}	
 		
-		System.out.println("done");
 	}
 	
 }

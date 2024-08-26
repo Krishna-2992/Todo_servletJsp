@@ -12,21 +12,27 @@ import com.yash.utils.DBConnection;
 public class TodoDAOImpl implements TodoDAO{
 	private List<Task> tasks = new ArrayList();
 	
+	private Connection connection;
+	
 	public void addTask(String name, String description) {
 		try {
-			Connection con = DBConnection.getConnection();
+			connection = DBConnection.getConnection();
 			
 			String q = "insert into Tasks values(?,?)";
-			PreparedStatement ps = con.prepareStatement(q);
+			PreparedStatement ps = connection.prepareStatement(q);
 			ps.setString(1, name);
 			ps.setString(2, description);
-			ps.executeUpdate();
+			int rowsAffected = ps.executeUpdate();
 			
-			System.out.println("data inserted successfully via dao");
-            con.close();
+			if (rowsAffected > 0) {
+                System.out.println("Task added successfully(optimized)");
+            } else {
+                System.out.println("Failed to add task");
+            }
+            DBConnection.closeConnection(connection);
             
 		} catch (SQLException e) {
-			System.out.println(e);
+			System.err.println("SQL Exception occurred: " + e.getMessage());
 		}
 	}
 	
