@@ -2,6 +2,7 @@ package com.yash.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +48,44 @@ public class TodoDAOImpl implements TodoDAO{
 	public void saveTask(Task task) {
 		tasks.add(task);
 	}
+	
 	public List<Task> getAllTasks() {
+		System.out.println("Inside getAllTasks: daoImpl");
+		List<Task> tasks = new ArrayList<>();
+		try {
+			connection = DBConnection.getConnection();	
+			String q = "Select * from Tasks";
+			PreparedStatement ps = connection.prepareStatement(q);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Task task = new Task();
+				task.setId(rs.getInt("id"));
+				task.setName(rs.getString("name"));
+				task.setDescription(rs.getString("description"));
+				task.setStatus(rs.getString("status"));
+				tasks.add(task);
+			}
+			if(tasks != null) {
+				System.out.println("Tasks fetched successfully");
+				for(Task task: tasks) {
+					System.out.println("id: " + task.getId());
+					System.out.println("name: " + task.getName());
+					System.out.println("description: " + task.getDescription());
+					System.out.println("Status: " + task.getStatus());
+				}
+			}
+			
+			rs.close();
+			ps.close();
+            DBConnection.closeConnection(connection);
+            
+		} catch (SQLException e) {
+			System.err.println("SQL Exception occurred: " + e.getMessage());
+		}
 		return tasks;
 	}
+	
 	public Task getTaskById(int id) {
 		for(Task task : tasks) {
 			if(task.id == id) {

@@ -15,5 +15,8 @@
 		Task description: <input type="text" name="description" value="eat healthy food">
 		<button type="submit">Add Task</button>
 	</form>
+	<form action="TodoController">
+		<button type="submit">Console all tasks</button>
+	</form>
 </body>
 </html>

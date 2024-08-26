@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.yash.pojo.Task;
 import com.yash.services.TodoServices;
 import com.yash.services.TodoServicesImpl;
 import com.yash.utils.DBConnection;
@@ -40,7 +42,18 @@ public class TodoController extends HttpServlet {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to add tasks");
 		}	
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+		List<Task> tasks = todoServices.getAllTasks(); 
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 }
