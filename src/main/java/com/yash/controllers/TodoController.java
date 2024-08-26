@@ -48,6 +48,8 @@ public class TodoController extends HttpServlet {
 		throws ServletException, IOException {
 		List<Task> tasks = todoServices.getAllTasks(); 
 		
+		request.setAttribute("tasks", tasks);
+        request.getRequestDispatcher("displayTasks.jsp").forward(request, response);
 	}
 	
 	

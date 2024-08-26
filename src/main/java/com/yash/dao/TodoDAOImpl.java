@@ -66,15 +66,16 @@ public class TodoDAOImpl implements TodoDAO{
 				task.setStatus(rs.getString("status"));
 				tasks.add(task);
 			}
-			if(tasks != null) {
-				System.out.println("Tasks fetched successfully");
-				for(Task task: tasks) {
-					System.out.println("id: " + task.getId());
-					System.out.println("name: " + task.getName());
-					System.out.println("description: " + task.getDescription());
-					System.out.println("Status: " + task.getStatus());
-				}
-			}
+			
+//			if(tasks != null) {
+//				System.out.println("Tasks fetched successfully");
+//				for(Task task: tasks) {
+//					System.out.println("id: " + task.getId());
+//					System.out.println("name: " + task.getName());
+//					System.out.println("description: " + task.getDescription());
+//					System.out.println("Status: " + task.getStatus());
+//				}
+//			}
 			
 			rs.close();
 			ps.close();
