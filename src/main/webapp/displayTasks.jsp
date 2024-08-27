@@ -36,7 +36,16 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= task.getName() %></td>
                                     <td class="px-6 py-4 text-sm text-gray-500"><%= task.getDescription() %></td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= task.getStatus() %></td>
-                                    <td><a href="DeleteTask?id=<%=task.getId()%>">Delete</a></td>
+                                    <td>
+									    <a href="DeleteTask?id=<%=task.getId()%>" class="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded mr-2">
+									        Delete
+									    </a>
+									</td>
+									<td>
+									    <a href="UpdateTask?id=<%=task.getId()%>" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
+									        Done
+									    </a>
+									</td>
                                 </tr>
                             <%
                         }
