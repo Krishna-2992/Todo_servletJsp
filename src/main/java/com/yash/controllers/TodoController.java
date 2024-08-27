@@ -27,8 +27,16 @@ public class TodoController extends HttpServlet {
 		this.todoServices = new TodoServicesImpl();	
 	}
     
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<Task> tasks = todoServices.getAllTasks(); 
+		System.out.println("inside doGet!!!!!!!!!!!!!!!!!1");
+		request.setAttribute("tasks", tasks);
+        request.getRequestDispatcher("displayTasks.jsp").forward(request, response);
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-		throws ServletException, IOException {
+			throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		
@@ -37,25 +45,12 @@ public class TodoController extends HttpServlet {
 		
 		try {
 			todoServices.addTask(name, description);
-			System.out.println("done");
+			List<Task> tasks = todoServices.getAllTasks(); 
+			request.setAttribute("tasks", tasks);
+			request.getRequestDispatcher("displayTasks.jsp").forward(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to add tasks");
 		}	
 	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		List<Task> tasks = todoServices.getAllTasks(); 
-		
-		request.setAttribute("tasks", tasks);
-        request.getRequestDispatcher("displayTasks.jsp").forward(request, response);
-	}
-	
-	
-	
-	
-	
-	
-	
 }
