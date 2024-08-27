@@ -36,12 +36,30 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= task.getName() %></td>
                                     <td class="px-6 py-4 text-sm text-gray-500"><%= task.getDescription() %></td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= task.getStatus() %></td>
+                                    <td><a href="DeleteTask?id=<%=task.getId()%>">Delete</a></td>
                                 </tr>
                             <%
                         }
                     %>
                 </tbody>
             </table>
+        </div>
+        
+        <div class="text-center">
+        	<%
+			String message = (String)request.getAttribute("message");
+			String errorMessage = (String)request.getAttribute("errorMessage");
+			
+			if(message != null) {
+			%>
+			<p class="text-green-600"><%=message %></p>
+			<%
+			} else if(errorMessage != null) {
+			%>
+			<p class="text-red-600"><%=errorMessage %></p>
+			<%
+			}
+		%>
         </div>
         
         <a href="TodoList.jsp" class="mt-8 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
